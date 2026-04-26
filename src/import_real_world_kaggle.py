@@ -44,7 +44,8 @@ def reset_raw_directories() -> None:
 def select_class_rows(styles: pd.DataFrame, images_dir: Path, class_name: str) -> pd.DataFrame:
     article_types = REAL_WORLD_IMPORT_ARTICLE_TYPES[class_name]
     filtered = styles.loc[styles["articleType"].isin(article_types)].copy()
-    filtered["image_path"] = filtered["id"].map(lambda image_id: image_path_for_id(images_dir, image_id))
+    image_ids = filtered["id"].astype(str)
+    filtered["image_path"] = image_ids.map(lambda image_id: image_path_for_id(images_dir, str(image_id)))
     filtered = filtered.loc[filtered["image_path"].map(Path.exists)].copy()
     filtered = filtered.drop_duplicates(subset=["id"])
     return filtered

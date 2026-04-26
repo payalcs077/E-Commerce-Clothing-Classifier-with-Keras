@@ -1,9 +1,9 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import tensorflow as tf
+keras = tf.keras
+layers = keras.layers
 from sklearn.metrics import confusion_matrix
-from tensorflow import keras
-from tensorflow.keras import layers
 
 from config import (
     BATCH_SIZE,
@@ -155,7 +155,7 @@ def main():
             restore_best_weights=True,
         ),
         keras.callbacks.ModelCheckpoint(
-            filepath=MODEL_FILE,
+            filepath=str(MODEL_FILE),
             monitor="val_loss",
             save_best_only=True,
         ),
